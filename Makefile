@@ -8,5 +8,9 @@
 include .make/Makefile.inc
 
 NS              ?= default
-APP             ?= app
+APP             ?= minio
 export
+
+run:
+
+	kubectl --namespace $(NS) exec $(shell kubectl get pods --all-namespaces -lapp=$(APP) -o jsonpath='{.items[0].metadata.name}') -i -t -- bash
